@@ -1,73 +1,65 @@
-import "./App.css";
-import React, { useState } from "react";
-import TodoBoard from "./component/TodoBoard";
+import React from "react";
+import { Link, Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
-// import Box from "./Box";
+import Home from "./Home";
+import TodoList from "./component/TodoList";
+import Count from "./component/example/Count";
+import Count2 from "./component/example/Count2";
+import InputSample from "./component/example/InputSample";
+import LifeCycleTest from "./component/example/lifecycletest";
+import LifeCycleSample from "./component/example/LifeCycleSample";
+import UserList from "./component/example/UserList";
+import UserList2 from "./component/example/UserList2";
+import NotFound from "./NotFound";
 
 function App() {
-  // let count = 0;
-  // const [count2, setCount2] = useState(0);
-  // const [name, setName] = useState("철수");
-  // const increase = () => {
-  //   setCount2(count2 + 1);
-  // };
-  // const change = () => {
-  //   setName("영희");
-  // };
-  const [inputValue, setInputValue] = useState("");
-  const [todoList, setTodoList] = useState([]);
-  const addItem = () => {
-    console.log("here !", inputValue);
-    setTodoList([...todoList, inputValue]);
-  };
-  const deleteItem = (id) => {
-    console.log("id::::", id);
-    setTodoList((todoList) => {
-      return todoList.filter((item, index) => {
-        return index !== id;
-      });
-    });
-  };
-
   return (
-    <main>
-      <h3 className="title">할일</h3>
-      <InputGroup className="mb-3">
-        <Form.Control
-          placeholder="할일 입력"
-          aria-label="Recipient's username"
-          aria-describedby="basic-addon2"
-          value={inputValue}
-          onChange={(event) => setInputValue(event.target.value)}
-        />
-        <Button
-          variant="outline-secondary"
-          id="button-addon2"
-          onClick={addItem}
-        >
-          추가
-        </Button>
-      </InputGroup>
-      <TodoBoard todoList={todoList} onChecked={deleteItem} />
-    </main>
-    // <main>
-    //   <input
-    //     type="text"
-    //     value={inputValue}
-    //     onChange={(event) => setInputValue(event.target.value)}
-    //   ></input>
-    //   <button onClick={addItem}>추가</button>
-    //   <TodoBoard todoList={todoList} onChecked={deleteItem} />
-    //   {/* <div>{count}</div>
-    //   <div>state : {count2}</div>
-    //   <button onClick={increase}>증가</button>
-    //   <div>{name}</div>
-    //   <button onClick={change}>이름변경</button>
-    //   <Box name="코알누" num="1" /> */}
-    // </main>
+    <Router>
+      <header>
+        <Link to="/">
+          <Button variant="outline-dark">Home</Button>
+        </Link>
+        <Link to="/todoList">
+          <Button variant="outline-dark">todoList</Button>
+        </Link>
+        <Link to="/count">
+          <Button variant="outline-dark">count_useState</Button>
+        </Link>
+        <Link to="/count2">
+          <Button variant="outline-dark">count_useReducer</Button>
+        </Link>
+        <Link to="/input">
+          <Button variant="outline-dark">InputSample</Button>
+        </Link>
+        <Link to="/lifeCycle">
+          <Button variant="outline-dark">LifeCycle</Button>
+        </Link>
+        <Link to="/lifeCycleSample">
+          <Button variant="outline-dark">LifeCycleSample</Button>
+        </Link>
+        <Link to="/arrayRender">
+          <Button variant="outline-dark">arrayRender_useState</Button>
+        </Link>
+        <Link to="/arrayRender2">
+          <Button variant="outline-dark">arrayRender_useReducer</Button>
+        </Link>
+      </header>
+      <hr />
+      <main>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route path="/todoList" element={<TodoList />} />
+          <Route path="/count" element={<Count />} />
+          <Route path="/count2" element={<Count2 />} />
+          <Route path="/input" element={<InputSample />} />
+          <Route path="/lifeCycle" element={<LifeCycleTest />} />
+          <Route path="/lifeCycleSample" element={<LifeCycleSample />} />
+          <Route path="/arrayRender" element={<UserList />} />
+          <Route path="/arrayRender2" element={<UserList2 />} />
+          <Route element={<NotFound />} />
+        </Routes>
+      </main>
+    </Router>
   );
 }
-
 export default App;
