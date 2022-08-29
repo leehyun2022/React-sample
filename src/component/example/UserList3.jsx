@@ -6,7 +6,8 @@ import React, {
   useCallback,
 } from "react";
 import Accordion from "react-bootstrap/Accordion";
-import CreateUser2 from "./CreateUser2";
+import CreateUser3 from "./CreateUser3";
+import useInputs from "./hooks/useInputs";
 // function User({ user, deleteItem, id }) {
 //   console.log("props", user);
 //   console.log("key", id);
@@ -25,10 +26,10 @@ import CreateUser2 from "./CreateUser2";
 // }
 const User = React.memo(function User(props) {
   useEffect(() => {
-    console.log("user 값이 설정됨");
+    // console.log("user 값이 설정됨");
     // console.log(props.user);
     return () => {
-      console.log("user 가 바뀌기 전..");
+      // console.log("user 가 바뀌기 전..");
       // console.log(props.user);
     };
   }, []);
@@ -57,16 +58,11 @@ const User = React.memo(function User(props) {
 });
 
 function countActiveUsers(users) {
-  console.log("활성 사용자 수를 세는중2...");
+  // console.log("활성 사용자 수를 세는중2...");
   return users.filter((user) => user.active).length;
 }
 
 const initialState = {
-  inputs: {
-    username: "",
-    email: "",
-    id: "",
-  },
   users: [
     {
       id: 1,
@@ -90,10 +86,7 @@ const initialState = {
 };
 
 function reducer(state, action) {
-  console.log("3");
-  console.log("state", state);
-  console.log("action.value", action.value);
-  console.log("action.name", action.name);
+  console.log("initialState::", initialState.inputs);
   switch (action.type) {
     case "CHANGE_INPUT":
       return {
@@ -120,14 +113,8 @@ function reducer(state, action) {
           user.id === action.id ? { ...user, active: !user.active } : user
         ),
       };
-    case "MODIFY_USER":
-      return {
-        ...state,
-        inputs: action.user,
-      };
     case "UPDATE_USER":
       return {
-        inputs: initialState.inputs,
         users: state.users.map((user) =>
           user.id === action.id
             ? { ...user, username: action.username, email: action.email }
@@ -140,21 +127,18 @@ function reducer(state, action) {
 }
 
 function UserList() {
+  const [{ username, email, id }, onChange, reset, onModify] = useInputs({
+    username: "",
+    email: "",
+    id: "",
+  });
+  console.log("username::", username);
   const [state, dispatch] = useReducer(reducer, initialState);
   const { users } = state;
-  const { username, email, id } = state.inputs;
   const nextId = useRef(4);
 
-  const onChange = useCallback((e) => {
-    const { name, value } = e.target;
-    dispatch({
-      type: "CHANGE_INPUT",
-      name,
-      value,
-    });
-  }, []);
-
   const onCreate = useCallback(() => {
+    console.log("등록 시작");
     dispatch({
       type: "CREATE_USER",
       user: {
@@ -163,8 +147,11 @@ function UserList() {
         email,
       },
     });
+    console.log("등록 끝");
+    reset();
+    console.log("초기화 완료");
     nextId.current += 1;
-  }, [username, email]); // 함수형으로 변경하여 users 제외
+  }, [username, email, reset]); // 함수형으로 변경하여 users 제외
   // }, [users, username, email]);
 
   const onRemove = useCallback(
@@ -196,17 +183,11 @@ function UserList() {
         username,
         email,
       });
+      reset();
     },
     // [users, username, email]
-    [username, email] //함수형 변경으로 users 제외
+    [username, email, reset] //함수형 변경으로 users 제외
   );
-
-  const onModify = useCallback((user) => {
-    dispatch({
-      type: "MODIFY_USER",
-      user,
-    });
-  }, []);
 
   const count = useMemo(() => countActiveUsers(users), [users]);
   return (
@@ -215,56 +196,15 @@ function UserList() {
         <Accordion.Item eventKey="0">
           <Accordion.Header>기본 설명</Accordion.Header>
           <Accordion.Body>
-            ■useReducer * 상태를 업데이트 할 때에는 useState 를 사용해서 새로운
-            상태를 설정
+            ■커스텀 Hooks <br />
+            * 반복적으로 사용되는 로직을 별도 컴포넌트로 작성하여 사용. <br />
+            * onChange, reset, onModify 별도 컴포넌트 useInputs 로 작성.
             <br />
-            * 동일한 기능으로 useReducer 사용
             <br />
-            * 이 Hook 함수를 사용하면 컴포넌트의 상태 업데이트 로직을
-            컴포넌트에서 분리시킬 수 있음.
-            <br />
-            * 샘플 count 감소 증가
-            <br />
-            * function reducer(state, action) &#123;
-            <br />
-            * switch (action.type) &#123;
-            <br />
-            * case 'INCREMENT':
-            <br />
-            * return state + 1;
-            <br />
-            * case 'DECREMENT':
-            <br />
-            * return state - 1;
-            <br />
-            * default:
-            <br />
-            * return state;
-            <br />
-            * &#125;
-            <br />
-            * &#125;
-            <br />
-            * function Counter() &#123;
-            <br />
-            * const [state, dispatch] = useReducer(reducer, 0); <br />
-            * const onIncrease = () =&#62; &#123;
-            <br />
-            * dispatch(&#123; type: 'INCREMENT' &#125;);
-            <br />
-            * &#125;;
-            <br />
-            * <br />
-            * const onDecrease = () =&#62; &#123;
-            <br />
-            * dispatch(&#123; type: 'DECREMENT' &#125;);
-            <br />
-            * &#125;; <br />
-            <br />
-            강의목록 20
+            강의목록 21
             <br />
             <a
-              href="https://react.vlpt.us/basic/20-useReducer.html"
+              href="https://react.vlpt.us/basic/21-custom-hook.html"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -274,7 +214,7 @@ function UserList() {
         </Accordion.Item>
       </Accordion>
       <div>
-        <CreateUser2
+        <CreateUser3
           username={username}
           email={email}
           id={id}

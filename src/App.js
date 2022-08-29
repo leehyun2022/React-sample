@@ -10,6 +10,7 @@ import LifeCycleTest from "./component/example/lifecycletest";
 import LifeCycleSample from "./component/example/LifeCycleSample";
 import UserList from "./component/example/UserList";
 import UserList2 from "./component/example/UserList2";
+import UserList3 from "./component/example/UserList3";
 import NotFound from "./NotFound";
 
 function App() {
@@ -37,11 +38,14 @@ function App() {
         <Link to="/lifeCycleSample">
           <Button variant="outline-dark">LifeCycleSample</Button>
         </Link>
-        <Link to="/arrayRender">
-          <Button variant="outline-dark">arrayRender_useState</Button>
+        <Link to="/arrayState">
+          <Button variant="outline-dark">array_useState</Button>
         </Link>
-        <Link to="/arrayRender2">
-          <Button variant="outline-dark">arrayRender_useReducer</Button>
+        <Link to="/arrayReducer">
+          <Button variant="outline-dark">array_useReducer</Button>
+        </Link>
+        <Link to="/arrayCustomHook">
+          <Button variant="outline-dark">array_customHooks</Button>
         </Link>
       </header>
       <hr />
@@ -54,8 +58,9 @@ function App() {
           <Route path="/input" element={<InputSample />} />
           <Route path="/lifeCycle" element={<LifeCycleTest />} />
           <Route path="/lifeCycleSample" element={<LifeCycleSample />} />
-          <Route path="/arrayRender" element={<UserList />} />
-          <Route path="/arrayRender2" element={<UserList2 />} />
+          <Route path="/arrayState" element={<UserList />} />
+          <Route path="/arrayReducer" element={<UserList2 />} />
+          <Route path="/arrayCustomHook" element={<UserList3 />} />
           <Route element={<NotFound />} />
         </Routes>
       </main>
