@@ -3,7 +3,6 @@ import { useReducer, useCallback } from "react";
 function reducer(state, action) {
   console.log("action::", action);
   console.log("state::", state);
-  console.log("state::", state);
   // console.log("initialState", inputs);
   switch (action.type) {
     case "CHANGE_INPUT":
@@ -49,9 +48,6 @@ function useInputs(initialForm) {
       value,
     });
   }, []);
-  const reset = useCallback(() => {
-    dispatch({ type: "RESET" });
-  }, []);
 
   const onModify = useCallback((user) => {
     dispatch({
@@ -59,6 +55,10 @@ function useInputs(initialForm) {
       user,
     });
   }, []);
+  const reset = useCallback(() => {
+    dispatch({ type: "RESET" });
+  }, []);
+
   console.log("state22::", state);
   return [state, onChange, reset, onModify];
 }

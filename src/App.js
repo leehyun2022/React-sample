@@ -11,6 +11,7 @@ import LifeCycleSample from "./component/example/LifeCycleSample";
 import UserList from "./component/example/UserList";
 import UserList2 from "./component/example/UserList2";
 import UserList3 from "./component/example/UserList3";
+import UserList4 from "./component/example/UserList4";
 import NotFound from "./NotFound";
 
 function App() {
@@ -47,6 +48,9 @@ function App() {
         <Link to="/arrayCustomHook">
           <Button variant="outline-dark">array_customHooks</Button>
         </Link>
+        <Link to="/contextApi">
+          <Button variant="outline-dark">contextApi</Button>
+        </Link>
       </header>
       <hr />
       <main>
@@ -61,6 +65,7 @@ function App() {
           <Route path="/arrayState" element={<UserList />} />
           <Route path="/arrayReducer" element={<UserList2 />} />
           <Route path="/arrayCustomHook" element={<UserList3 />} />
+          <Route path="/contextApi" element={<UserList4 />} />
           <Route element={<NotFound />} />
         </Routes>
       </main>
