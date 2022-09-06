@@ -12,6 +12,7 @@ import UserList from "./component/example/UserList";
 import UserList2 from "./component/example/UserList2";
 import UserList3 from "./component/example/UserList3";
 import UserList4 from "./component/example/UserList4";
+import UserList5 from "./component/example/UserList5";
 import NotFound from "./NotFound";
 
 function App() {
@@ -51,6 +52,9 @@ function App() {
         <Link to="/contextApi">
           <Button variant="outline-dark">contextApi</Button>
         </Link>
+        <Link to="/immer">
+          <Button variant="outline-dark">immer</Button>
+        </Link>
       </header>
       <hr />
       <main>
@@ -66,6 +70,7 @@ function App() {
           <Route path="/arrayReducer" element={<UserList2 />} />
           <Route path="/arrayCustomHook" element={<UserList3 />} />
           <Route path="/contextApi" element={<UserList4 />} />
+          <Route path="/immer" element={<UserList5 />} />
           <Route element={<NotFound />} />
         </Routes>
       </main>
