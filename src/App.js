@@ -2,7 +2,8 @@ import React from "react";
 import { Link, Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Home from "./Home";
-import TodoList from "./component/TodoList";
+import TodoMain from "./component/TodoMain";
+import TodoList2 from "./component/TodoList2";
 import Count from "./component/example/Count";
 import Count2 from "./component/example/Count2";
 import InputSample from "./component/example/InputSample";
@@ -22,8 +23,11 @@ function App() {
         <Link to="/">
           <Button variant="outline-dark">Home</Button>
         </Link>
-        <Link to="/todoList">
+        <Link to="/todoMain">
           <Button variant="outline-dark">todoList</Button>
+        </Link>
+        <Link to="/todoList2">
+          <Button variant="outline-dark">todoList2</Button>
         </Link>
         <Link to="/count">
           <Button variant="outline-dark">count_useState</Button>
@@ -60,7 +64,8 @@ function App() {
       <main>
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route path="/todoList" element={<TodoList />} />
+          <Route path="/todoMain" element={<TodoMain />} />
+          <Route path="/todoList2" element={<TodoList2 />} />
           <Route path="/count" element={<Count />} />
           <Route path="/count2" element={<Count2 />} />
           <Route path="/input" element={<InputSample />} />

@@ -1,8 +1,8 @@
 import React from "react";
-import TodoItem from "./TodoItem";
+import TodoItem2 from "./TodoItem2";
 import Accordion from "react-bootstrap/Accordion";
 
-function TodoBoard(props) {
+function TodoBoard2(props) {
   return (
     <Accordion defaultActiveKey="0">
       <Accordion.Item eventKey="1">
@@ -10,7 +10,7 @@ function TodoBoard(props) {
         <Accordion.Body>
           {/* <TodoItem /> */}
           {props.todoList.map((item, i) => (
-            <TodoItem key={i} item={item} id={i} onChanged={props.onChecked} />
+            <TodoItem2 key={i} item={item} id={i} onChanged={props.onChecked} />
           ))}
           {/* {props.todoList.map((item, i) => (
         <div key={i}>{item}</div>
@@ -21,4 +21,4 @@ function TodoBoard(props) {
   );
 }
 
-export default TodoBoard;
+export default TodoBoard2;
